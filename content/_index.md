@@ -24,7 +24,7 @@ sections:
         color: black
         image:
           # Add your image background to `assets/media/`.
-          filename: stacked-peaks.svg
+          filename: coffeeandlight.jpg
           filters:
             brightness: 1.0
           size: cover
@@ -85,7 +85,7 @@ sections:
       count: 5
       # Filter on criteria
       filters:
-        author: ""
+        author: "uzziel-perez"
         category: ""
         tag: ""
         exclude_featured: false
