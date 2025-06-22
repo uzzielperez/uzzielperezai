@@ -35,11 +35,14 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        I'm currently actively working on implementing lightweight Graph Neural Networks for Real Time Analysis for reconstructing particles at the LHCb experiment. I'm also interested in using Large Language Models for Physics analysis as well as joining efforts in creating Large Physics Models. 
 
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
+I also have other passion projects such as building applications with text-to-speech AI and using LLMs for open-source patient-centered augmented healthcare intelligence. I know there are a lot of buzzwords here. Happy to discuss more if our interests align! 
+        # Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+
+        # I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
         
-        Please reach out to collaborate 😃
+        # Please reach out to collaborate 😃
     design:
       columns: '1'
   - block: collection
