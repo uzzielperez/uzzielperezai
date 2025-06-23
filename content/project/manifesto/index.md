@@ -1,6 +1,6 @@
 ---
-title: Apprie
-date: 2025-06-25
+title: Manifesto
+date: 2025-06-23
 external_link: https://manifest.ink/
 tags:
   - Javascript
