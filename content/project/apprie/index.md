@@ -1,6 +1,6 @@
 ---
 title: Apprie
-date: 2025-06-23
+date: 2024-06-23
 external_link: https://areuwell.org/
 tags:
   - Javascript

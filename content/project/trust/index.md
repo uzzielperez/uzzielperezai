@@ -1,6 +1,6 @@
 ---
 title: The Evolution of Trust (Filipino Translation)
-date: 2025-06-23
+date: 2024-06-23
 external_link: https://tiwalaph.github.io/TiwalaPH/
 tags:
   - Javascript
