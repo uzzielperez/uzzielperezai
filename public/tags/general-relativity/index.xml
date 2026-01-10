@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>General-Relativity | Hugo Academic CV Theme</title><link>https://uzzielperez.com/tags/general-relativity/</link><atom:link href="https://uzzielperez.com/tags/general-relativity/index.xml" rel="self" type="application/rss+xml"/><description>General-Relativity</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 14 Jan 2025 00:00:00 +0000</lastBuildDate><image><url>https://uzzielperez.com/media/icon_hu_645fa481986063ef.png</url><title>General-Relativity</title><link>https://uzzielperez.com/tags/general-relativity/</link></image><item><title>Black Hole Visualization</title><link>https://uzzielperez.com/teaching/science-communication/black-hole-visualization/</link><pubDate>Tue, 14 Jan 2025 00:00:00 +0000</pubDate><guid>https://uzzielperez.com/teaching/science-communication/black-hole-visualization/</guid><description>&lt;h2 id="exploring-black-holes-through-interactive-visualization">Exploring Black Holes Through Interactive Visualization&lt;/h2>
+&lt;p>Black holes are among the most fascinating objects in the universe. They represent regions of spacetime where gravity is so strong that nothing, not even light, can escape once it crosses the event horizon.&lt;/p>
+&lt;h3 id="key-concepts">Key Concepts&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Event Horizon&lt;/strong>: The boundary beyond which escape is impossible&lt;/li>
+&lt;li>&lt;strong>Accretion Disk&lt;/strong>: Matter spiraling into the black hole, heated to extreme temperatures&lt;/li>
+&lt;li>&lt;strong>Gravitational Lensing&lt;/strong>: Light bending around the black hole due to extreme gravity&lt;/li>
+&lt;li>&lt;strong>Hawking Radiation&lt;/strong>: Theoretical radiation emitted by black holes&lt;/li>
+&lt;/ul>
+&lt;h3 id="interactive-visualization">Interactive Visualization&lt;/h3>
+&lt;p>Below is an interactive 3D visualization of a black hole with an accretion disk. Move your mouse to explore different viewing angles.&lt;/p>
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">&lt;/script>&lt;div id="blackhole-1768089455676748000" class="blackhole-container" style="position: relative; width: 100%; height: 600px; background: #000; overflow: hidden;">&lt;/div>&lt;script src="https://uzzielperez.com/js/blackhole.js">&lt;/script>
+&lt;script>
+(function() {
+const container = document.getElementById('blackhole-1768089455676748000');
+if (container &amp;&amp; typeof initBlackHole === 'function') {
+initBlackHole(container);
+}
+})();
+&lt;/script>
+&lt;h3 id="what-youre-seeing">What You&amp;rsquo;re Seeing&lt;/h3>
+&lt;p>The visualization shows:&lt;/p>
+&lt;ul>
+&lt;li>The &lt;strong>event horizon&lt;/strong> as a black sphere at the center&lt;/li>
+&lt;li>An &lt;strong>accretion disk&lt;/strong> of glowing matter spiraling inward&lt;/li>
+&lt;li>&lt;strong>Gravitational lensing&lt;/strong> effects bending light around the black hole&lt;/li>
+&lt;li>&lt;strong>Background stars&lt;/strong> providing spatial context&lt;/li>
+&lt;li>Particles occasionally escaping near the event horizon&lt;/li>
+&lt;/ul>
+&lt;p>This visualization helps illustrate how black holes interact with their environment and how they appear to distant observers.&lt;/p></description></item></channel></rss>
