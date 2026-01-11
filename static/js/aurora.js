@@ -1,256 +1,256 @@
 /**
  * Aurora Visualization
- * Interactive 3D visualization of Northern/Southern Lights
+ * WebGL shader-based aurora with mountains and flowing green northern lights
  */
 
 function initAurora(container) {
-  if (!container || typeof THREE === 'undefined') {
-    console.error('Aurora visualization requires Three.js and a valid container');
+  if (!container) {
+    console.error('Aurora visualization requires a valid container');
     return;
   }
 
-  const scene = new THREE.Scene();
-  const mousePos = { x: 0, y: 0 };
-  let loaded = false;
+  const canvas = document.createElement('canvas');
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.position = 'absolute';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  container.appendChild(canvas);
 
-  const camera = new THREE.PerspectiveCamera(
-    60,
-    container.clientWidth / container.clientHeight,
-    0.1,
-    1000
-  );
-  camera.position.set(0, 0, 15);
-
-  const renderer = new THREE.WebGLRenderer({ 
-    antialias: true, 
-    alpha: false 
-  });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  container.appendChild(renderer.domElement);
-
-  // Dark night sky background
-  scene.background = new THREE.Color(0x0a0e27);
-
-  // Ground/horizon
-  const groundGeo = new THREE.PlaneGeometry(100, 50);
-  const groundMat = new THREE.MeshBasicMaterial({
-    color: 0x1a1a2e,
-    side: THREE.DoubleSide
-  });
-  const ground = new THREE.Mesh(groundGeo, groundMat);
-  ground.rotation.x = Math.PI / 2;
-  ground.position.y = -8;
-  scene.add(ground);
-
-  // Stars background
-  const starsGeo = new THREE.BufferGeometry();
-  const starCount = 2000;
-  const starPositions = new Float32Array(starCount * 3);
-  const starSizes = new Float32Array(starCount);
-  
-  for (let i = 0; i < starCount * 3; i += 3) {
-    const radius = 30 + Math.random() * 50;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = (Math.random() - 0.5) * Math.PI * 0.5;
-    
-    starPositions[i] = radius * Math.cos(phi) * Math.cos(theta);
-    starPositions[i + 1] = radius * Math.sin(phi);
-    starPositions[i + 2] = radius * Math.cos(phi) * Math.sin(theta);
-    
-    starSizes[i / 3] = Math.random() * 2 + 0.5;
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) {
+    console.error('WebGL not supported');
+    return;
   }
-  
-  starsGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-  starsGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
-  
-  const starsMat = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: 0.15,
-    transparent: true,
-    opacity: 0.8,
-    sizeAttenuation: true
-  });
-  const stars = new THREE.Points(starsGeo, starsMat);
-  scene.add(stars);
 
-  // Aurora curtains - multiple layers
-  const auroraCurtains = [];
-  const curtainCount = 8;
-  
-  for (let i = 0; i < curtainCount; i++) {
-    const curtainGroup = new THREE.Group();
-    
-    // Create flowing curtain using particles
-    const particlesGeo = new THREE.BufferGeometry();
-    const particleCount = 500;
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    const sizes = new Float32Array(particleCount);
-    
-    // Color palette: green, blue-green, purple, red
-    const colorPalette = [
-      new THREE.Color(0x00ff88), // Bright green
-      new THREE.Color(0x00d4aa), // Blue-green
-      new THREE.Color(0x4a90e2), // Blue
-      new THREE.Color(0x9b59b6), // Purple
-      new THREE.Color(0xff6b9d), // Pink-red
-    ];
-    
-    const baseColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-    
-    for (let j = 0; j < particleCount; j++) {
-      const x = (i - curtainCount / 2) * 3 + (Math.random() - 0.5) * 2;
-      const y = Math.random() * 15 - 5;
-      const z = Math.random() * 2 - 1;
-      
-      positions[j * 3] = x;
-      positions[j * 3 + 1] = y;
-      positions[j * 3 + 2] = z;
-      
-      // Vary colors slightly
-      const colorVariation = 0.7 + Math.random() * 0.3;
-      colors[j * 3] = baseColor.r * colorVariation;
-      colors[j * 3 + 1] = baseColor.g * colorVariation;
-      colors[j * 3 + 2] = baseColor.b * colorVariation;
-      
-      sizes[j] = 0.3 + Math.random() * 0.5;
+  // Vertex shader
+  const vertexShaderSource = `
+    attribute vec2 p;
+    void main(){
+      gl_Position=vec4(p,0,1);
+    }
+  `;
+
+  // Fragment shader with green northern lights
+  const fragmentShaderSource = `
+    precision highp float;
+    uniform float time;
+    uniform vec2 resolution;
+
+    float h(vec2 p){
+      return fract(sin(dot(p,vec2(127.1,311.7)))*43758.545);
     }
     
-    particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particlesGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    particlesGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    float n(vec2 p){
+      vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);
+      return mix(mix(h(i),h(i+vec2(1,0)),u.x),
+                 mix(h(i+vec2(0,1)),h(i+vec2(1,1)),u.x),u.y);
+    }
     
-    const particlesMat = new THREE.PointsMaterial({
-      size: 0.4,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending,
-      sizeAttenuation: true
-    });
-    
-    const particles = new THREE.Points(particlesGeo, particlesMat);
-    curtainGroup.add(particles);
-    
-    // Add flowing lines/ribbons
-    const ribbonPoints = [];
-    const ribbonCount = 3;
-    
-    for (let r = 0; r < ribbonCount; r++) {
-      const curvePoints = [];
-      const segments = 50;
+    float fbm(vec2 p){
+      float v=0.,a=.5;
+      for(int i=0;i<5;i++){v+=a*n(p);p*=2.;a*=.5;}
+      return v;
+    }
+
+    float mountain(vec2 uv){
+      float b=0.32;
+      float p1=exp(-pow((uv.x+0.12)*2.6,2.))*0.42;
+      float r1=exp(-pow((uv.x-0.35)*3.8,2.))*0.22;
+      float r2=exp(-pow((uv.x+0.6)*4.2,2.))*0.16;
+      return b+p1+r1+r2+fbm(uv*6.)*0.05;
+    }
+
+    // Aurora function for northern lights
+    float aurora(vec2 uv, float t) {
+      float wave1 = sin(uv.x * 3.0 + t * 0.8) * 0.1;
+      float wave2 = sin(uv.x * 5.0 - t * 0.6) * 0.05;
+      float wave3 = sin(uv.x * 7.0 + t * 1.2) * 0.03;
       
-      for (let s = 0; s <= segments; s++) {
-        const t = s / segments;
-        const x = (i - curtainCount / 2) * 3 + Math.sin(t * Math.PI * 4 + i) * 0.5;
-        const y = t * 20 - 10;
-        const z = Math.sin(t * Math.PI * 2) * 0.3;
-        curvePoints.push(new THREE.Vector3(x, y, z));
+      float y = uv.y - 0.6 + wave1 + wave2 + wave3;
+      float intensity = exp(-abs(y) * 8.0);
+      
+      // Add flowing noise
+      float noise = fbm(vec2(uv.x * 4.0 + t * 0.3, uv.y * 2.0));
+      intensity *= (0.7 + 0.3 * noise);
+      
+      return intensity;
+    }
+
+    void main(){
+      vec2 uv=gl_FragCoord.xy/resolution;
+      uv=uv*2.-1.; 
+      uv.x*=resolution.x/resolution.y;
+
+      // Dark night sky with subtle gradient
+      vec3 sky=mix(vec3(0.02,0.05,0.08),vec3(0.05,0.12,0.18),uv.y*.5+.5);
+      float m=mountain(uv);
+      float mask=step(m,uv.y);
+
+      // Calculate distance to mountain silhouette for glow effect
+      float distToMountain = abs(uv.y - m);
+      float glow = exp(-distToMountain * 12.0) * mask;
+      glow += exp(-distToMountain * 6.0) * 0.3 * mask;
+      
+      // Subtle blue mountain glow
+      float glowPulse = 0.8 + 0.2 * sin(time * 0.2);
+      glow *= glowPulse;
+
+      // Green Aurora Borealis
+      float auroraIntensity = aurora(uv, time);
+      auroraIntensity *= mask; // Only show above mountains
+      
+      // Multiple aurora layers for depth
+      float aurora2 = aurora(uv + vec2(0.3, 0.1), time * 0.7) * 0.6;
+      float aurora3 = aurora(uv - vec2(0.2, 0.05), time * 1.3) * 0.4;
+      
+      vec3 auroraColor1 = vec3(0.2, 0.8, 0.4); // Bright green
+      vec3 auroraColor2 = vec3(0.1, 0.6, 0.3); // Darker green
+      vec3 auroraColor3 = vec3(0.3, 0.9, 0.5); // Light green
+      
+      vec3 mountainGlow = vec3(0.4, 0.6, 0.8); // Cool blue glow
+      vec3 col = sky;
+      
+      // Add mountain glow
+      col += glow * mountainGlow * 0.6;
+      
+      // Add aurora layers
+      col += auroraIntensity * auroraColor1 * 1.2;
+      col += aurora2 * auroraColor2 * 0.8;
+      col += aurora3 * auroraColor3 * 0.6;
+
+      if(uv.y<m){
+        col*=0.15; // Darker mountains
+        // Add subtle glow reflection
+        col += glow * mountainGlow * 0.1;
       }
-      
-      const curve = new THREE.CatmullRomCurve3(curvePoints);
-      const ribbonGeo = new THREE.TubeGeometry(curve, segments, 0.1, 8, false);
-      
-      const ribbonMat = new THREE.MeshBasicMaterial({
-        color: baseColor,
-        transparent: true,
-        opacity: 0.3,
-        side: THREE.DoubleSide,
-        blending: THREE.AdditiveBlending
-      });
-      
-      const ribbon = new THREE.Mesh(ribbonGeo, ribbonMat);
-      curtainGroup.add(ribbon);
+
+      gl_FragColor=vec4(col,1);
     }
-    
-    auroraCurtains.push({
-      group: curtainGroup,
-      particles: particles,
-      baseY: -5 + Math.random() * 10,
-      speed: 0.3 + Math.random() * 0.4,
-      wavePhase: Math.random() * Math.PI * 2,
-      color: baseColor
-    });
-    
-    scene.add(curtainGroup);
+  `;
+
+  // Create shader
+  function createShader(gl, type, source) {
+    const shader = gl.createShader(type);
+    if (!shader) return null;
+
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
+      gl.deleteShader(shader);
+      return null;
+    }
+
+    return shader;
   }
 
-  // Mouse movement for camera
-  const handleMouseMove = (e) => {
+  // Create program
+  function createProgram(gl, vertexShader, fragmentShader) {
+    const program = gl.createProgram();
+    if (!program) return null;
+
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error('Program linking error:', gl.getProgramInfoLog(program));
+      gl.deleteProgram(program);
+      return null;
+    }
+
+    return program;
+  }
+
+  // Initialize WebGL
+  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+
+  if (!vertexShader || !fragmentShader) {
+    console.error('Failed to create shaders');
+    return;
+  }
+
+  const program = createProgram(gl, vertexShader, fragmentShader);
+  if (!program) {
+    console.error('Failed to create program');
+    return;
+  }
+
+  const timeLocation = gl.getUniformLocation(program, 'time');
+  const resolutionLocation = gl.getUniformLocation(program, 'resolution');
+
+  // Create position buffer
+  const positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+    -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1,
+  ]), gl.STATIC_DRAW);
+
+  const positionLocation = gl.getAttribLocation(program, 'p');
+  gl.enableVertexAttribArray(positionLocation);
+  gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+  // Resize function
+  function resizeCanvas() {
     const rect = container.getBoundingClientRect();
-    mousePos.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    mousePos.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-  };
+    const dpr = window.devicePixelRatio || 1;
+    
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
 
-  container.addEventListener('mousemove', handleMouseMove);
-
-  // Animation loop
-  let time = 0;
+  // Render function
+  let animationId;
+  let startTime = performance.now();
   
-  const animate = () => {
-    requestAnimationFrame(animate);
-    time += 0.01;
+  function render() {
+    const currentTime = performance.now();
+    const elapsed = (currentTime - startTime) * 0.001;
 
-    // Camera movement based on mouse
-    camera.position.x += (mousePos.x * 3 - camera.position.x) * 0.05;
-    camera.position.y += (mousePos.y * 2 - camera.position.y) * 0.05;
-    camera.lookAt(0, 0, 0);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
-    // Animate aurora curtains
-    auroraCurtains.forEach((curtain, i) => {
-      const positions = curtain.particles.geometry.attributes.position.array;
-      const wave = Math.sin(time * curtain.speed + curtain.wavePhase) * 2;
-      
-      for (let j = 0; j < positions.length; j += 3) {
-        // Create flowing, waving motion
-        const originalX = (i - curtainCount / 2) * 3;
-        const y = positions[j + 1];
-        const waveEffect = Math.sin(y * 0.2 + time * curtain.speed + curtain.wavePhase) * 1.5;
-        
-        positions[j] = originalX + waveEffect + Math.sin(time * 0.5 + y * 0.1) * 0.5;
-        positions[j + 1] += Math.sin(time * 0.3 + j * 0.01) * 0.02;
-        positions[j + 2] = Math.sin(time * 0.4 + y * 0.15) * 0.3;
-      }
-      
-      curtain.particles.geometry.attributes.position.needsUpdate = true;
-      
-      // Rotate curtain group slightly
-      curtain.group.rotation.z = Math.sin(time * 0.2 + i) * 0.1;
-    });
+    gl.useProgram(program);
 
-    // Gentle star rotation
-    stars.rotation.y = time * 0.01;
+    if (timeLocation) {
+      gl.uniform1f(timeLocation, elapsed);
+    }
+    if (resolutionLocation) {
+      gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+    }
 
-    // Subtle ground rotation for perspective
-    ground.rotation.z = Math.sin(time * 0.1) * 0.02;
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-    renderer.render(scene, camera);
-  };
+    animationId = requestAnimationFrame(render);
+  }
 
-  animate();
-  setTimeout(() => { loaded = true; }, 100);
+  // Initialize
+  resizeCanvas();
+  render();
 
   // Handle resize
   const handleResize = () => {
-    if (!container) return;
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    resizeCanvas();
   };
 
   window.addEventListener('resize', handleResize);
 
   // Cleanup function
   return () => {
-    window.removeEventListener('resize', handleResize);
-    if (container) {
-      container.removeEventListener('mousemove', handleMouseMove);
-      if (renderer.domElement.parentNode === container) {
-        container.removeChild(renderer.domElement);
-      }
+    if (animationId) {
+      cancelAnimationFrame(animationId);
     }
-    
-    renderer.dispose();
+    window.removeEventListener('resize', handleResize);
+    if (canvas.parentNode === container) {
+      container.removeChild(canvas);
+    }
   };
 }
