@@ -18,6 +18,12 @@ Auroras are created when charged particles from the Sun—carried by the solar w
 3. **Atmospheric Collision**: The particles collide with atoms and molecules in Earth's upper atmosphere (80-1000 km altitude)
 4. **Energy Release**: When these collisions occur, the atmospheric particles become "excited" and then release energy in the form of light
 
+### Interactive Visualization
+
+Below is an interactive 3D visualization of auroras showing the characteristic curtain-like structures and flowing patterns. Move your mouse to explore different viewing angles and observe how the aurora curtains dance and flow.
+
+{{< aurora >}}
+
 ## The Color Palette of Auroras
 
 The different colors of auroras depend on two main factors:
