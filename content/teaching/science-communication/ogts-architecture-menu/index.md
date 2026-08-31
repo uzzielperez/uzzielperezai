@@ -35,3 +35,5 @@ Gate colours on this page are **schematic**. CHEP 2026 numbers that are real sta
 The cheap oracle is a surrogate under FLOP and wall-time constraints. It is a filter, not calorimeter truth. The expensive oracle is Allen-scale PicoCal reconstruction. If they disagree, the lie is published; the ranking that counts is Allen's.
 
 The human gate keeps what counts as an acceptable model of systematic uncertainty. The \(\Lambda_b\to\Lambda\gamma\) revival found an efficiency-ratio discrepancy from two compensating errors whose branching ratio still looked fine. A beautiful excess that is two mistakes does not pass.
+
+This page is an AI-assisted first version of the demonstrator.

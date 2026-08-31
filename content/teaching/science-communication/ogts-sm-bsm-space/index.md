@@ -31,3 +31,5 @@ The **inner loop** is a different object: a [named reconstruction menu](/teachin
 Track thickness on the BSM side is a **schematic** share for this demonstrator. It is not a published OGTS ranking, and it is not a claim that the search already beats legacy allocation. Stage 0 on the left is the calibration problem whose answer is already known. The open question is whether the same grammar transfers to LHCb channels and to SMEFT.
 
 The human gate keeps two decisions: what counts as a legitimate node, and what counts as an acceptable model of systematic uncertainty. The Λb → Λγ revival found an efficiency-ratio discrepancy from two compensating errors whose branching ratio still looked fine. A beautiful excess that is two mistakes does not pass.
+
+This page is an AI-assisted first version of the demonstrator.
