@@ -234,14 +234,6 @@
     },
   ];
 
-  var RECO = [
-    { id: "ca", label: "cellular automaton", x: 118 },
-    { id: "gc", label: "Graph Clustering", x: 330 },
-    { id: "garnet", label: "GarNet", x: 530 },
-    { id: "uzzienet", label: "UzzieNet", x: 730 },
-    { id: "deepsets", label: "deep sets", x: 930 },
-  ];
-
   var EDGES = [
     { from: "fermi_1933", to: "V", kind: "refine" },
     { from: "fermi_1933", to: "A", kind: "refine" },
@@ -375,10 +367,10 @@
     stage.className = "og-stage";
     var svg = el("svg", {
       class: "og-svg",
-      viewBox: "0 0 1100 640",
+      viewBox: "0 0 1100 570",
       role: "img",
       "aria-label":
-        "Two-chamber event display: Standard Model historical spine on the left, open BSM hypothesis space on the right, reconstruction menu along the bottom.",
+        "Two-chamber event display: Standard Model historical spine on the left, open BSM hypothesis space on the right.",
     });
     stage.appendChild(svg);
 
@@ -389,7 +381,7 @@
     var caption = document.createElement("p");
     caption.className = "og-caption";
     caption.textContent =
-      "On a narrow screen, pan the chambers sideways. Track thickness on the BSM side is a schematic compute share for this demonstrator, not a published OGTS ranking. Pruned nodes get zero spend. Reconstruction families along the bottom are the inner loop under an HLT1 latency budget.";
+      "On a narrow screen, pan the chambers sideways. Track thickness on the BSM side is a schematic compute share for this demonstrator, not a published OGTS ranking. Pruned nodes get zero spend.";
 
     wrap.appendChild(toolbar);
 
@@ -443,10 +435,10 @@
       svg.appendChild(gBg);
 
       gBg.appendChild(
-        el("rect", { x: 36, y: 28, width: 500, height: 500, rx: 14, fill: "var(--og-chamber)", opacity: chamberOpacity("sm") })
+        el("rect", { x: 36, y: 28, width: 500, height: 520, rx: 14, fill: "var(--og-chamber)", opacity: chamberOpacity("sm") })
       );
       gBg.appendChild(
-        el("rect", { x: 564, y: 28, width: 500, height: 500, rx: 14, fill: "var(--og-chamber)", opacity: chamberOpacity("bsm") })
+        el("rect", { x: 564, y: 28, width: 500, height: 520, rx: 14, fill: "var(--og-chamber)", opacity: chamberOpacity("bsm") })
       );
       gBg.appendChild(
         el("text", {
@@ -469,59 +461,10 @@
         })
       ).textContent = "BSM FUTURES  ·  open searchable space";
 
-      gBg.appendChild(
-        el("line", {
-          x1: 36,
-          y1: 568,
-          x2: 1064,
-          y2: 568,
-          stroke: "var(--og-line)",
-          "stroke-width": 1,
-        })
-      );
-      gBg.appendChild(
-        el("text", {
-          x: 36,
-          y: 558,
-          fill: "var(--og-muted)",
-          "font-size": 12,
-          "font-weight": 600,
-          "letter-spacing": "0.04em",
-        })
-      ).textContent = "INNER LOOP  ·  reconstruction menu under HLT1 latency";
-
       function nodeStatus(n) {
         if (n.prunedAfter && state.era < n.prunedAfter) return "ranked";
         return n.status;
       }
-
-      RECO.forEach(function (r) {
-        var on = state.selected === "Lb_L" ? r.id === "uzzienet" || r.id === "garnet" : r.id === "gc" || r.id === "garnet";
-        var g = el("g");
-        g.appendChild(
-          el("rect", {
-            x: r.x - 78,
-            y: 580,
-            width: 156,
-            height: 36,
-            rx: 18,
-            fill: on ? "var(--og-cyan)" : "transparent",
-            stroke: "var(--og-line)",
-            "stroke-width": 1,
-            opacity: on ? 0.9 : 1,
-          })
-        );
-        var t = el("text", {
-          x: r.x,
-          y: 603,
-          "text-anchor": "middle",
-          fill: on ? "oklch(0.98 0.01 220)" : "var(--og-ink)",
-          "font-size": 12,
-        });
-        t.textContent = r.label;
-        g.appendChild(t);
-        svg.appendChild(g);
-      });
 
       EDGES.forEach(function (e) {
         var a = BY_ID[e.from];
