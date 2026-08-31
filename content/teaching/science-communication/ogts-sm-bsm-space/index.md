@@ -32,4 +32,4 @@ Track thickness on the BSM side is a **schematic** share for this demonstrator. 
 
 The human gate keeps two decisions: what counts as a legitimate node, and what counts as an acceptable model of systematic uncertainty. The Λb → Λγ revival found an efficiency-ratio discrepancy from two compensating errors whose branching ratio still looked fine. A beautiful excess that is two mistakes does not pass.
 
-This page is an AI-assisted first version of the demonstrator.
+This page is an AI-assisted first version of the post.
