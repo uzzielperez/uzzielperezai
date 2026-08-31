@@ -1,0 +1,12 @@
+{{- $id := printf "ogts-space-%d" now.UnixNano -}}
+<div id="{{ $id }}" class="ogts-space-host"></div>
+<noscript>
+  <p>Interactive graph requires JavaScript. The page text below describes the same Standard Model spine and BSM ontology.</p>
+</noscript>
+<script src="{{ "js/ogts-space.js" | relURL }}"></script>
+<script>
+  (function () {
+    var host = document.getElementById({{ $id | jsonify | safeJS }});
+    if (host && typeof initOgtsSpace === "function") initOgtsSpace(host);
+  })();
+</script>
