@@ -1,8 +1,7 @@
-```markdown
 ---
 title: "T-rex — Stan (3D Skeleton)"
 date: 2026-01-11
-draft: false
+draft: true
 tags: [paleontology, visualization, 3d-model]
 ---
 
@@ -35,7 +34,5 @@ Key points:
 
 ### Notes for site maintainers
 
-- Place the `.glb` file at `static/uploads/tyrannosaurus_rex_stan_skeleton.glb` so the model loads.
+- Drafted until the `.glb` is hosted. File lives locally at `static/uploads/tyrannosaurus_rex_stan_skeleton.glb` (93 MB; not in git).
 - If you prefer a different viewer or additional annotations, I can add captions, cross-section views, or hotspot callouts.
-
-```
