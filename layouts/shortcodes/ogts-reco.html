@@ -1,0 +1,12 @@
+{{- $id := printf "ogts-reco-%d" now.UnixNano -}}
+<div id="{{ $id }}" class="ogts-reco-host"></div>
+<noscript>
+  <p>Interactive graph requires JavaScript. The page text below describes the same reconstruction menu and gates.</p>
+</noscript>
+<script src="{{ "js/ogts-reco.js" | relURL }}"></script>
+<script>
+  (function () {
+    var host = document.getElementById({{ $id | jsonify | safeJS }});
+    if (host && typeof initOgtsReco === "function") initOgtsReco(host);
+  })();
+</script>
