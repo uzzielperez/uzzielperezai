@@ -2,11 +2,8 @@
 # Display name
 title: Uzziel Perez
 
-# # Name pronunciation (optional)
-# name_pronunciation: Chien Shiung Wu
-
 # Full name (for SEO)
-first_name: Cilicia Uzziel  
+first_name: Cilicia Uzziel
 last_name: Perez
 
 # Status emoji
@@ -20,11 +17,11 @@ superuser: true
 highlight_name: true
 
 # Role/position/tagline
-role: Postdoctoral Researcher
+role: Postdoctoral Researcher · AI for High Energy Physics
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
-  - name: La Salle Campus, Barcelona
+  - name: DS4DS, La Salle Campus Barcelona
     url: https://www.salleurl.edu/es
 
 # Social network links
@@ -35,154 +32,151 @@ profiles:
     label: E-mail Me
   - icon: brands/x
     url: https://twitter.com/GetResearchDev
-  - icon: brands/instagram
-    url: https://www.instagram.com/
   - icon: brands/github
     url: https://github.com/uzzielperez
-  - icon: brands/linkedin
-    url: https://www.linkedin.com/
-  - icon: academicons/google-scholar
-    url: https://scholar.google.com/
   - icon: academicons/orcid
     url: https://orcid.org/0000-0002-6861-2674
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/citations?user=eKulhj8AAAAJ
+  - icon: academicons/inspire
+    url: https://inspirehep.net/authors/1614907
 
 interests:
-  - Artificial Intelligence
-  - Consciousness Research
-  - Fast Computing 
+  - Real-time machine learning for particle physics
+  - LLM agents and retrieval for scientific analysis
+  - Fast inference and model compression
+  - Science communication and digital health
 
 education:
   - area: PhD Physics (High Energy Physics)
-    institution: University of Alabama 
+    institution: University of Alabama
     date_start: 2016-08-01
     date_end: 2024-05-31
     summary: |
-      GPA: 3.8/4.0
-    summary: |
-      Search for New Physics with High Mass Diphoton Events with CMS Full Run 2 Data 
-    button:
-      text: 'Read Thesis'
-      url: 'https://example.com'
-  # - area: MEng Artificial Intelligence
-  #   institution: Massachusetts Institute of Technology
-  #   date_start: 2016-01-01
-  #   date_end: 2020-12-31
-  #   summary: |
-  #     GPA: 3.8/4.0
-
-      Courses included:
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
+      Thesis: *Search for Non-Resonant New Physics in High-Mass Diphoton Events from pp Collisions at √s = 13 TeV with the CMS Detector and Highlights from HCAL Upgrades* (CERN-THESIS-2024-052). Advisors: Prof. Conor Henderson and Prof. Sergei Gleyzer. GPA 3.87/4.0.
   - area: BSc Physics
     institution: Ateneo de Manila University
-    date_start: 2016-01-01
-    date_end: 2020-12-31
+    date_start: 2007-06-01
+    date_end: 2012-03-31
     summary: |
-      GPA: 3.4/4.0
-      
-      Courses included:
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
+      100% OAA Scholar, Loyola School of Science and Engineering.
+
 work:
-  - position: Director of Cloud Infrastructure
-    company_name: GenCoin
-    company_url: ''
+  - position: Postdoctoral Researcher, Data Science for Digital Society (DS4DS)
+    company_name: La Salle Campus Barcelona — Ramon Llull University
+    company_url: 'https://www.salleurl.edu/es'
     company_logo: ''
-    date_start: 2021-01-01
+    date_start: 2024-01-01
     date_end: ''
     summary: |2-
-      Responsibilities include:
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - position: Backend Software Engineer
-    company_name: X
+      - Lightweight Graph Neural Networks for real-time particle reconstruction in LHCb's next-generation PicoCal calorimeter: attention-enhanced GarNet models with 8× faster inference than message-passing baselines.
+      - Knowledge distillation for trigger-ready models: GarNet students with ~40% fewer parameters and Graph-to-MLP distillation giving 2–6× additional speedup at ~95% smaller size, surpassing the teacher on energy resolution.
+      - PyTorch-to-ONNX inference optimization on multi-core CPUs and NVIDIA A100 GPUs (up to 5× CPU and ~2× GPU speedup at 10⁻⁷ FP32 parity), targeting the LHCb GPU trigger (HLT1/Allen).
+      - RAG and agentic LLM tooling to revive and accelerate a legacy Run-2 LHCb analysis (Λb → Λγ), presented at CHEP 2026 alongside two other talks.
+  - position: CMS HCAL Operations — Research Assistant
+    company_name: CERN / University of Alabama
+    company_url: 'https://home.cern'
+    company_logo: ''
+    date_start: 2020-01-01
+    date_end: 2022-07-31
+    summary: |2-
+      - Software developer for HCAL Online Software (cmshcos); coordinated daily data acquisition and oversaw Detector Control Systems for subdetector upgrades.
+      - Built configurable Look-Up-Table support for HCAL FPGA fast electronics enabling exotic long-lived-particle selection: loads a LUT in ~7 s versus hours-to-days of per-channel FPGA reprogramming.
+      - Led "Closure Test Studies" pipeline reducing time-to-physics across the 2016–2018 datasets; refurbished and tested on-detector and back-end electronics (ngCCMs).
+  - position: Instructor & Teaching Assistant
+    company_name: University of Alabama
     company_url: ''
     company_logo: ''
-    date_start: 2016-01-01
-    date_end: 2020-12-31
-    summary: |
-      Responsibilities include:
-      - Migrated infrastructure to a new data center
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
+    date_start: 2016-08-01
+    date_end: 2024-05-31
+    summary: |2-
+      - Led lab and problem-solving classes for honors and regular calculus-based Electromagnetism and "Physics for Physics Teachers", ~100 students per semester.
+      - Summer lecturer for calculus-based Electromagnetism (2019).
+  - position: Science Education Officer & Consultant
+    company_name: The Mind Museum
+    company_url: 'https://www.themindmuseum.org'
+    company_logo: ''
+    date_start: 2012-03-01
+    date_end: 2015-09-01
+    summary: |2-
+      - Created and co-led "Soccer Science" and "MakerSpacePH" programs (sports-science data analysis, instrumentation, Arduino); forged sponsor partnerships (Mitre, 3M).
+      - Co-designed exhibits and performed science shows for ~1M visitors.
 
 # Skills
 # Add your own SVG icons to `assets/media/icons/`
 skills:
-  - name: Technical Skills
+  - name: Machine Learning
     items:
-      - name: Python
-        description: ''
+      - name: PyTorch · TensorFlow/Keras · scikit-learn
+        description: 'GNNs, knowledge distillation, model compression'
+        percent: 90
+        icon: sparkles
+      - name: ONNX Runtime · inference optimization
+        description: 'CPU/GPU benchmarking, numerical-parity validation'
+        percent: 85
+        icon: bolt
+      - name: RAG · LLM agents · MCP tooling
+        description: 'Vector databases, agentic pipelines for physics analysis'
         percent: 80
-        icon: code-bracket
-      - name: Data Science
-        description: ''
-        percent: 100
-        icon: chart-bar
-      - name: SQL
-        description: ''
-        percent: 40
-        icon: circle-stack
-  - name: Hobbies
+        icon: chat-bubble-left-right
+  - name: Scientific Computing
     color: '#eeac02'
     color_border: '#f0bf23'
     items:
-      - name: Hiking
-        description: ''
-        percent: 60
-        icon: person-simple-walk
-      - name: Cats
-        description: ''
-        percent: 100
-        icon: cat
-      - name: Photography
-        description: ''
+      - name: Python
+        description: '~11 years, analysis to production'
+        percent: 95
+        icon: code-bracket
+      - name: C/C++ · ROOT
+        description: '~8 years, detector software and analysis'
         percent: 80
-        icon: camera
+        icon: cpu-chip
+      - name: Git · Shell · distributed computing
+        description: 'Worldwide LHC Computing Grid workflows'
+        percent: 85
+        icon: circle-stack
 
 languages:
   - name: English
     percent: 100
-  - name: Chinese
-    percent: 75
-  - name: Portuguese
-    percent: 25
+  - name: Filipino (Tagalog)
+    percent: 100
+  - name: Spanish
+    percent: 35
+  - name: French
+    percent: 35
+  - name: German
+    percent: 20
 
 # Awards.
 #   Add/remove as many awards below as you like.
 #   Only `title`, `awarder`, and `date` are required.
 #   Begin multi-line `summary` with YAML's `|` or `|2-` multi-line prefix and indent 2 spaces below.
 awards:
-  - title: Neural Networks and Deep Learning
-    url: https://www.coursera.org/learn/neural-networks-deep-learning
-    date: '2023-11-25'
+  - title: CERN ScicommHack Incubation Grant
+    date: '2020-01-01'
+    awarder: CERN
+    summary: |
+      Seed funding and computational resources for the **Particle Silo** open science infrastructure project. Role: Technical Co-Investigator.
+  - title: GENEUS Best Life Science Project
+    date: '2021-12-01'
+    awarder: The PORT Hackathon / Innosuisse Business Concept
+    summary: |
+      Awarded for **Apprie**, an open-source augmented healthcare intelligence application.
+  - title: 2nd Place, CERN Summer Webfest
+    date: '2015-08-01'
+    awarder: CERN
+    summary: |
+      For **Everware**: reproducible and reusable science powered by JupyterHub and Docker.
+  - title: Deep Learning Specialization courses
+    url: https://www.coursera.org/specializations/deep-learning
+    date: '2018-03-01'
     awarder: Coursera
     icon: coursera
     summary: |
-      I studied the foundational concept of neural networks and deep learning. By the end, I was familiar with the significant technological trends driving the rise of deep learning; build, train, and apply fully connected deep neural networks; implement efficient (vectorized) neural networks; identify key parameters in a neural network’s architecture; and apply deep learning to your own applications.
-  - title: Blockchain Fundamentals
-    url: https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals
-    date: '2023-07-01'
-    awarder: edX
-    icon: edx
-    summary: |
-      Learned:
-      - Synthesize your own blockchain solutions
-      - Gain an in-depth understanding of the specific mechanics of Bitcoin
-      - Understand Bitcoin’s real-life applications and learn how to attack and destroy Bitcoin, Ethereum, smart contracts and Dapps, and alternatives to Bitcoin’s Proof-of-Work consensus algorithm
-  - title: 'Object-Oriented Programming in R'
-    url: https://www.datacamp.com/courses/object-oriented-programming-with-s3-and-r6-in-r
-    certificate_url: https://www.datacamp.com
-    date: '2023-01-21'
-    awarder: datacamp
-    icon: datacamp
-    summary: |
-      Object-oriented programming (OOP) lets you specify relationships between functions and the objects that they can act on, helping you manage complexity in your code. This is an intermediate level course, providing an introduction to OOP, using the S3 and R6 systems. S3 is a great day-to-day R programming tool that simplifies some of the functions that you write. R6 is especially useful for industry-specific analyses, working with web APIs, and building GUIs.
+      Neural Networks & Deep Learning; Hyperparameter Tuning & Optimization (2017); Convolutional Neural Networks (2018).
 ---
 
 ## About Me
 
-Uzziel Perez is a postdoctoral researcher of artificial intelligence applied to high energy physics at the the Data Science for Digital Society (DS4DS) at La Salle Campus Barcelona. Her research interests include  particle physics, distributed computing, artificial intelligence and digital health. 
+I'm a postdoctoral researcher at Data Science for Digital Society (DS4DS), La Salle Campus Barcelona, working on AI for high-energy physics. I build lightweight graph neural networks for real-time particle reconstruction at the LHCb experiment and LLM/RAG systems that help physicists revive and accelerate their analyses. Before this, I spent 2.5 years at CERN operating and programming the CMS hadronic calorimeter, and earned my PhD at the University of Alabama searching for new physics in high-mass diphoton events. I care deeply about science communication: I've built museum exhibits, interactive physics visualizations, and open-source tools for healthcare and education.

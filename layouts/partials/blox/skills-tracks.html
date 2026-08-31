@@ -1,0 +1,176 @@
+{{/* Skills Tracks: event-display-inspired visualization of skills gained over a period. */}}
+{{/* Tracks are defined in the page's block content so they stay editable in content/_index.md */}}
+
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
+{{ $tracks := $block.content.tracks }}
+{{ $vertex_label := $block.content.vertex_label | default "" }}
+{{ $caption := $block.content.caption | default "" }}
+
+{{/* Fixed fan-out geometry for up to three tracks */}}
+{{ $endY := slice 100 270 440 }}
+
+<style>
+  .st-wrap {
+    --st-c1: oklch(0.55 0.11 220);
+    --st-c2: oklch(0.6 0.13 75);
+    --st-c3: oklch(0.52 0.16 350);
+    --st-line: oklch(0.88 0.008 250);
+    --st-muted: oklch(0.5 0.01 250);
+    --st-ink: oklch(0.25 0.01 250);
+  }
+  .dark .st-wrap {
+    --st-c1: oklch(0.78 0.11 220);
+    --st-c2: oklch(0.8 0.12 80);
+    --st-c3: oklch(0.72 0.15 350);
+    --st-line: oklch(0.32 0.01 250);
+    --st-muted: oklch(0.68 0.01 250);
+    --st-ink: oklch(0.93 0.005 250);
+  }
+  .st-svg { display: none; }
+  @media (min-width: 768px) { .st-svg { display: block; } }
+  .st-track-path {
+    fill: none;
+    stroke-width: 2.5;
+    transition: stroke-width 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s;
+  }
+  .st-wrap[data-hover] .st-track-path { opacity: 0.25; }
+  .st-wrap[data-hover="0"] .st-track-path[data-track="0"],
+  .st-wrap[data-hover="1"] .st-track-path[data-track="1"],
+  .st-wrap[data-hover="2"] .st-track-path[data-track="2"] { opacity: 1; stroke-width: 4; }
+  .st-hit { transition: opacity 0.3s; }
+  .st-wrap[data-hover] .st-hit { opacity: 0.25; }
+  .st-wrap[data-hover="0"] .st-hit[data-track="0"],
+  .st-wrap[data-hover="1"] .st-hit[data-track="1"],
+  .st-wrap[data-hover="2"] .st-hit[data-track="2"] { opacity: 1; }
+  .st-row {
+    border-top: 1px solid var(--st-line);
+    transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .st-chip {
+    border: 1px solid var(--st-line);
+    border-radius: 9999px;
+    padding: 0.15rem 0.65rem;
+    font-size: 0.82rem;
+    color: var(--st-ink);
+    white-space: nowrap;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .st-track-path.st-anim {
+      stroke-dasharray: var(--st-len, 1200);
+      stroke-dashoffset: var(--st-len, 1200);
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .st-wrap.st-in .st-track-path.st-anim { stroke-dashoffset: 0; }
+    .st-hit.st-anim { opacity: 0; transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+    .st-wrap.st-in .st-hit.st-anim { opacity: 1; }
+  }
+</style>
+
+<div class="st-wrap max-w-5xl mx-auto px-6">
+  <div class="text-center">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">{{ $title }}</h1>
+    {{ with $subtitle }}<p class="text-gray-600 dark:text-gray-300 mb-2">{{ . }}</p>{{ end }}
+  </div>
+
+  {{/* Event display */}}
+  <svg class="st-svg w-full h-auto mt-6" viewBox="0 0 1000 540" role="img"
+       aria-label="Particle-track style diagram: skill areas fan out from a vertex, each ending in a measured outcome. Details listed below.">
+    {{/* Detector layers: faint arcs around the vertex */}}
+    <g fill="none" stroke="var(--st-line)" stroke-width="1">
+      <circle cx="70" cy="270" r="90" opacity="0.7"/>
+      <circle cx="70" cy="270" r="180" opacity="0.5"/>
+      <circle cx="70" cy="270" r="290" opacity="0.35"/>
+      <circle cx="70" cy="270" r="420" opacity="0.2"/>
+      <line x1="0" y1="270" x2="1000" y2="270" opacity="0.35" stroke-dasharray="2 6"/>
+    </g>
+
+    {{/* Vertex */}}
+    <circle cx="70" cy="270" r="7" fill="var(--st-ink)"/>
+    {{ with $vertex_label }}
+      <text x="70" y="308" text-anchor="middle" font-size="15" fill="var(--st-muted)">{{ . }}</text>
+    {{ end }}
+
+    {{/* Tracks */}}
+    {{ range $i, $t := $tracks }}
+      {{ $y := index $endY $i }}
+      {{ $color := printf "var(--st-c%d)" (add $i 1) }}
+      <path class="st-track-path st-anim" data-track="{{ $i }}"
+            d="M 70 270 C 300 270, 380 {{ $y }}, 640 {{ $y }}"
+            stroke="{{ $color }}"/>
+      <circle class="st-hit st-anim" data-track="{{ $i }}" cx="640" cy="{{ $y }}" r="6" fill="{{ $color }}"/>
+      <text x="664" y="{{ sub $y 6 }}" font-size="14" fill="var(--st-muted)">{{ $t.name }}</text>
+      <text x="664" y="{{ add $y 18 }}" font-size="21" font-weight="700" fill="var(--st-ink)">{{ $t.outcome }}</text>
+    {{ end }}
+  </svg>
+
+  {{/* Track details: the readable, accessible source of truth */}}
+  <div class="mt-8">
+    {{ range $i, $t := $tracks }}
+      {{ $color := printf "var(--st-c%d)" (add $i 1) }}
+      <div class="st-row flex flex-col md:flex-row gap-2 md:gap-6 py-5" data-track-row="{{ $i }}">
+        <div class="md:w-64 shrink-0">
+          <div class="flex items-center gap-2.5">
+            <span class="inline-block w-3 h-3 rounded-full" style="background: {{ $color }}"></span>
+            <span class="font-semibold text-gray-900 dark:text-white">{{ $t.name }}</span>
+          </div>
+          <div class="mt-1 ps-[1.4rem] text-sm font-medium" style="color: {{ $color }}">{{ $t.outcome }}</div>
+        </div>
+        <div class="flex-1">
+          <div class="flex flex-wrap gap-2">
+            {{ range $t.milestones }}
+              <span class="st-chip">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ with $t.evidence }}
+            <div class="mt-2 text-sm">
+              <a class="text-primary-600 dark:text-primary-300 hover:underline" href="{{ .url | relURL }}">{{ .text }}</a>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+  </div>
+
+  {{ with $caption }}
+    <p class="mt-4 text-sm text-center" style="color: var(--st-muted)">{{ . | emojify | $page.RenderString }}</p>
+  {{ end }}
+</div>
+
+<script>
+  (function () {
+    var wrap = document.querySelector('.st-wrap');
+    if (!wrap || wrap.dataset.stInit) return;
+    wrap.dataset.stInit = '1';
+
+    // Measure real path lengths so the draw-in animation is accurate
+    wrap.querySelectorAll('.st-track-path').forEach(function (p) {
+      p.style.setProperty('--st-len', Math.ceil(p.getTotalLength()) + 1);
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            wrap.classList.add('st-in');
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.25 }).observe(wrap);
+    } else {
+      wrap.classList.add('st-in');
+    }
+
+    // Hovering a detail row highlights its track in the SVG
+    wrap.querySelectorAll('[data-track-row]').forEach(function (row) {
+      row.addEventListener('mouseenter', function () {
+        wrap.setAttribute('data-hover', row.dataset.trackRow);
+      });
+      row.addEventListener('mouseleave', function () {
+        wrap.removeAttribute('data-hover');
+      });
+    });
+  })();
+</script>

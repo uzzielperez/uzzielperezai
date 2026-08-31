@@ -14,7 +14,7 @@ marketing:
     site_type: Person
     local_business_type: ''
     org_name: ''
-    description: 'The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website.'
+    description: 'Uzziel Perez — postdoctoral researcher in AI for high-energy physics at DS4DS, La Salle Campus Barcelona. Lightweight graph neural networks for real-time particle reconstruction at LHCb, LLM/RAG systems for scientific analysis, and science communication.'
     twitter: 'GetResearchDev'
   analytics:
     google_analytics: ''
@@ -35,12 +35,12 @@ header:
     show_search: true
     show_theme_chooser: true
     logo:
-      text: "Your Name"
+      text: "Uzziel Perez"
 
 # Site footer
 footer:
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: '© {year} Uzziel Perez. This work is licensed under {license}'
     license:
       enable: true
       allow_derivatives: false
