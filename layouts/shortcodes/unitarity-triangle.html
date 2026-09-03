@@ -1,0 +1,12 @@
+{{- $id := printf "ut-evol-%d" now.UnixNano -}}
+<div id="{{ $id }}" class="ut-evol-host"></div>
+<noscript>
+  <p>The interactive Unitarity Triangle needs JavaScript. The twelve-panel UTfit figure and the year-by-year text on this page tell the same story: the bands shrink, they still meet, and LHCb Upgrade II is the next millimetre.</p>
+</noscript>
+<script src="{{ "js/unitarity-triangle.js" | relURL }}"></script>
+<script>
+  (function () {
+    var host = document.getElementById({{ $id | jsonify | safeJS }});
+    if (host && typeof initUnitarityTriangle === "function") initUnitarityTriangle(host);
+  })();
+</script>
