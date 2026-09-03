@@ -16,7 +16,9 @@ image:
   preview_only: true
 ---
 
-Vincenzo Vagnoni opened the [November 2024 LHCb Starterkit](https://indico.cern.ch/event/1460840/contributions/6184691/) with a plot I have stared at for years and still had to re-learn. Twelve panels. 2006 to 2023. Each year the coloured bands get thinner. By 2023 they look like lines, and they still cross at the same point.
+I was new to LHCb in 2024. CMS from 2015: hadronic calorimeter, diphotons, the compact-not-compact joke. Then I sat in the [November 2024 Starterkit](https://indico.cern.ch/event/1460840/contributions/6184691/) while Vincenzo Vagnoni opened with a plot I had never lived with. Twelve panels. 2006 to 2023. Each year the coloured bands get thinner. By 2023 they look like lines, and they still cross at the same point. I was the village idiot in that room. Flavour was a different language.
+
+{{< figure src="village-idiot-starterkit.png" alt="Meme: a man on a park bench with a box of chocolates. Caption: LHCb Starterkit 2024. The village idiot (I was in CMS)." caption="November 2024. Accurate." >}}
 
 That point is the question. Why do kaon mixing, $B$ oscillations, a rare decay to a tau, and a tree-level angle measured in $B \to DK$ all care about the same spot on a plane?
 
